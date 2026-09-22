@@ -13,7 +13,7 @@ find_package(Qt6 REQUIRED COMPONENTS Widgets)
 
 add_executable(purec-os-ide
     src/main.cpp
-    src/window/MainWindow.h
+    src/window/include/MainWindow.h
     src/window/MainWindow.cpp
 )
 

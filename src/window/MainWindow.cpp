@@ -1,4 +1,4 @@
-#include "MainWindow.h"
+#include "include/MainWindow.h"
 
 #include <QAction>
 #include <QDockWidget>
@@ -62,10 +62,6 @@ void MainWindow::setupCentralWidget()
         delete w;
     });
 
-    auto* welcome = new QPlainTextEdit(this);
-    welcome->setPlainText(QStringLiteral("// PureC-OS-IDE\n// Base window ready.\n// Next: editor, project tree, build integration.\n"));
-    welcome->setReadOnly(true);
-    m_tabs->addTab(welcome, tr("Welcome"));
 
     setCentralWidget(m_tabs);
 }
