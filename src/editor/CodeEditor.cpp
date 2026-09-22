@@ -32,14 +32,13 @@ private:
     CodeEditor* m_editor{nullptr};
 };
 
-} // namespace
+} 
 
 CodeEditor::CodeEditor(QWidget* parent)
     : QPlainTextEdit(parent)
     , m_lineNumberArea(new LineNumberArea(this))
     , m_highlighter(new CppHighlighter(document()))
 {
-    // Monospace base font
     QFont font(QStringLiteral("JetBrains Mono"), 11);
     font.setStyleHint(QFont::Monospace);
     font.setFixedPitch(true);
@@ -58,16 +57,12 @@ CodeEditor::CodeEditor(QWidget* parent)
     updateLineNumberAreaWidth(0);
     highlightCurrentLine();
 
-    setPlainText(QStringLiteral("// PureC-OS-IDE — base editor\n"
-                                "// Line numbers + C++ highlight ready.\n"
-                                "// TODO: LSP integration.\n"
-                                "\n"
-                                "#include <iostream>\n"
+    setPlainText(QStringLiteral("#include <iostream>\n"
                                 "\n"
                                 "int main() {\n"
                                 "    std::cout << \"hello purec\\n\";\n"
                                 "    return 0;\n"
-                                "}\n"));
+                                "}"));
 }
 
 int CodeEditor::lineNumberAreaWidth() const
@@ -125,7 +120,7 @@ void CodeEditor::resizeEvent(QResizeEvent* event)
                                         lineNumberAreaWidth(), cr.height()));
 }
 
-void CodeEditor::updateLineNumberAreaWidth(int /*newBlockCount*/)
+void CodeEditor::updateLineNumberAreaWidth(int)
 {
     setViewportMargins(lineNumberAreaWidth(), 0, 0, 0);
 }

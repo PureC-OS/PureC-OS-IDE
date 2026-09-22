@@ -26,7 +26,6 @@ CppHighlighter::CppHighlighter(QTextDocument* parent)
         m_rules.append(Rule{QRegularExpression(pattern), format});
     };
 
-    // Keywords (C++20)
     static const QStringList keywords = {
         QStringLiteral("\\balignas\\b"), QStringLiteral("\\balignof\\b"),
         QStringLiteral("\\bauto\\b"), QStringLiteral("\\bbreak\\b"),
@@ -61,26 +60,13 @@ CppHighlighter::CppHighlighter(QTextDocument* parent)
     for (const auto& kw : keywords) {
         addRule(kw, m_keywordFormat);
     }
-
-    // Types
-    addRule(QStringLiteral("\\b(int|long|short|char|bool|float|double|unsigned|signed|size_t|uint\\d+_t|int\\d+_t|void|auto)\\b"),
-            m_typeFormat);
-
-    // Preprocessor
+    addRule(QStringLiteral("\\b(int|long|short|char|bool|float|double|unsigned|signed|size_t|uint\\d+_t|int\\d+_t|void|auto)\\b"), m_typeFormat);
     addRule(QStringLiteral("^\\s*#[^\\n]*"), m_preprocessorFormat);
-
-    // Strings: "..." and '...'
     addRule(QStringLiteral("\".*?\""), m_stringFormat);
     addRule(QStringLiteral("'.*?'"), m_stringFormat);
-
-    // Numbers
     addRule(QStringLiteral("\\b\\d[\\d'_]*(\\.\\d+)?([eE][+-]?\\d+)?\\b"), m_numberFormat);
     addRule(QStringLiteral("\\b0[xX][0-9a-fA-F']+\\b"), m_numberFormat);
-
-    // // comment (single line)
     addRule(QStringLiteral("//[^\\n]*"), m_commentFormat);
-
-    // Function call: name(
     m_rules.append(Rule{QRegularExpression(QStringLiteral("\\b[A-Za-z_][A-Za-z0-9_]*(?=\\()")),
                            m_functionFormat});
 }
@@ -94,8 +80,6 @@ void CppHighlighter::highlightBlock(const QString& text)
             setFormat(match.capturedStart(), match.capturedLength(), rule.format);
         }
     }
-
-    // Multi-line /* ... */ comments
     setCurrentBlockState(0);
     int startIndex = 0;
     if (previousBlockState() != 1) {
