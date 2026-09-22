@@ -15,7 +15,13 @@ add_executable(purec-os-ide
     src/main.cpp
     src/window/include/MainWindow.h
     src/window/MainWindow.cpp
+    src/editor/include/CodeEditor.h
+    src/editor/CodeEditor.cpp
+    src/editor/include/CppHighlighter.h
+    src/editor/CppHighlighter.cpp
 )
+
+target_include_directories(purec-os-ide PRIVATE src)
 
 target_link_libraries(purec-os-ide PRIVATE Qt6::Widgets)
 
